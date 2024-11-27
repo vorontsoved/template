@@ -13,8 +13,9 @@ def setup_project():
     for item in os.listdir(source_dir):
         shutil.move(os.path.join(source_dir, item), project_root)
 
-    # Удалить временные папки
+    # Удалить временные папки и папку project_slug
     shutil.rmtree(os.path.join(project_root, "cobra"), ignore_errors=True)
     shutil.rmtree(os.path.join(project_root, "simple"), ignore_errors=True)
+    shutil.rmtree(os.path.join(project_root, "{{cookiecutter.project_slug}}"), ignore_errors=True)
 
 setup_project()
