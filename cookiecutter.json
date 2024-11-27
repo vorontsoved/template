@@ -4,7 +4,6 @@
     "author_name": "Your Name",
     "description": "A Go application template.",
     "version": "0.1.0",
-    "project_type": ["simple", "cobra"],
-    "services": []
+    "project_type": ["simple", "cobra"]
   }
   
