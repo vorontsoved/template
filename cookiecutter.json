@@ -1,6 +1,5 @@
 {
     "project_name": "My Go Project",
-    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
-    "project_type": ["simple", "cobra"]
+    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}"
   }
   
