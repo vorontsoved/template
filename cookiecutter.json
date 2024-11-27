@@ -1,9 +1,6 @@
 {
     "project_name": "My Go Project",
     "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
-    "author_name": "Your Name",
-    "description": "A Go application template.",
-    "version": "0.1.0",
     "project_type": ["simple", "cobra"]
   }
   
