@@ -1,5 +1,4 @@
 {
-    "project_name": "My Go Project",
-    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}"
-  }
-  
+    "project_slug": "my_project",
+    "include_cobra": ["yes", "no"]
+}
