@@ -1,12 +1,12 @@
 package cmd
 
 import (
-	"simple/cmd/config"
-	"simple/internal/pkg/logging"
-	"simple/internal/service/postgres"
-	"simple/internal/transport"
-	"simple/internal/usecase"
-	"simple/internal/utils/migration"
+	"{{cookiecutter.project_slug}}/cmd/config"
+	"{{cookiecutter.project_slug}}/internal/pkg/logging"
+	"{{cookiecutter.project_slug}}/internal/service/postgres"
+	"{{cookiecutter.project_slug}}/internal/transport"
+	"{{cookiecutter.project_slug}}/internal/usecase"
+	"{{cookiecutter.project_slug}}/internal/utils/migration"
 )
 
 // Two naming approaches:

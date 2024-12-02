@@ -1,7 +1,7 @@
 package usecase
 
 import (
-	"simple/internal/pkg/logging"
+	"{{cookiecutter.project_slug}}/internal/pkg/logging"
 )
 
 // Storage defines the methods that the storage layer must implement.

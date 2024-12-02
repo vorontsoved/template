@@ -4,7 +4,7 @@ import (
 	"context"
 	"log/slog"
 	"os"
-	"simple/internal/pkg/constants"
+	"{{cookiecutter.project_slug}}/internal/pkg/constants"
 
 	"github.com/google/uuid"
 )

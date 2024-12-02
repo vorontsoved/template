@@ -1,7 +1,7 @@
 package transport
 
 import (
-	"simple/internal/pkg/logging"
+	"{{cookiecutter.project_slug}}/internal/pkg/logging"
 )
 
 // AuthService defines authentication-related methods.

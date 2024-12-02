@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"path/filepath"
 	"runtime"
-	"simple/internal/pkg/logging"
 	"strings"
+	"{{cookiecutter.project_slug}}/internal/pkg/logging"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/jackc/pgx/v5/tracelog"

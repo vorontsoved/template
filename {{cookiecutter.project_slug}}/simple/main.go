@@ -4,10 +4,10 @@ import (
 	"log/slog"
 	"os"
 	"os/signal"
-	"simple/cmd"
-	"simple/internal/pkg/logging"
 	"sync"
 	"syscall"
+	"{{cookiecutter.project_slug}}/cmd"
+	"{{cookiecutter.project_slug}}/internal/pkg/logging"
 )
 
 func main() {

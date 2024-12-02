@@ -5,7 +5,7 @@ import (
 	"embed"
 	"fmt"
 	"io/fs"
-	"simple/internal/pkg/logging"
+	"{{cookiecutter.project_slug}}/internal/pkg/logging"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/tern/v2/migrate"
