@@ -9,11 +9,9 @@ def setup_project():
     else:
         source_dir = os.path.join(project_root, "simple")
 
-    # Переместить содержимое выбранной папки в корень
     for item in os.listdir(source_dir):
         shutil.move(os.path.join(source_dir, item), project_root)
 
-    # Удалить временные папки и папку project_slug
     shutil.rmtree(os.path.join(project_root, "cobra"), ignore_errors=True)
     shutil.rmtree(os.path.join(project_root, "simple"), ignore_errors=True)
     shutil.rmtree(os.path.join(project_root, "{{cookiecutter.project_slug}}"), ignore_errors=True)
