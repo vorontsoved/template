@@ -19,11 +19,11 @@ func main() {
 	var closeOnce sync.Once
 	closeApp := func() {
 		closeOnce.Do(func() {
-			logger.InfoWithOutContext("App: Closing...")
+			logger.InfoWithoutContext("App: Closing...")
 			if err := app.Close(); err != nil {
-				logger.ErrorWithOutContext("App: Failed to close properly", err)
+				logger.ErrorWithoutContext("App: Failed to close properly", err)
 			} else {
-				logger.InfoWithOutContext("App: Closed successfully")
+				logger.InfoWithoutContext("App: Closed successfully")
 			}
 		})
 	}
@@ -37,18 +37,18 @@ func main() {
 		runErrChan <- app.Run()
 	}()
 
-	logger.InfoWithOutContext("App: Starting...")
+	logger.InfoWithoutContext("App: Starting...")
 
 	select {
 	case sig := <-shutdownChan:
-		logger.InfoWithOutContext("App: Received shutdown signal", slog.String("signal", sig.String()))
+		logger.InfoWithoutContext("App: Received shutdown signal", slog.String("signal", sig.String()))
 	case err := <-runErrChan:
 		if err != nil {
-			logger.ErrorWithOutContext("App: Error occurred during execution", err)
+			logger.ErrorWithoutContext("App: Error occurred during execution", err)
 		}
 	}
 
 	closeApp()
 
-	logger.InfoWithOutContext("App: Stopped successfully")
+	logger.InfoWithoutContext("App: Stopped successfully")
 }
