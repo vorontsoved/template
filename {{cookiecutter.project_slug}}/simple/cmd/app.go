@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	"context"
+
 	"{{cookiecutter.project_slug}}/cmd/config"
 	"{{cookiecutter.project_slug}}/internal/pkg/logging"
 	"{{cookiecutter.project_slug}}/internal/service/postgres"
@@ -30,10 +32,10 @@ func New(logger logging.Logger) *App {
 	}
 }
 
-func (a App) Run() error {
+func (a *App) Run(ctx context.Context) error {
 	cfg, err := config.Parse()
 	if err != nil {
-		a.logger.ErrorWithoutContext("failed parse config", err)
+		a.logger.ErrorWithoutContext("failed to parse config", err)
 		return err
 	}
 
@@ -45,18 +47,11 @@ func (a App) Run() error {
 			Password: cfg.PgPassword,
 			DB:       cfg.PgDB,
 		}, a.logger); err != nil {
-			a.logger.ErrorWithoutContext("failed migrate", err)
+			a.logger.ErrorWithoutContext("failed to migrate database", err)
 			return err
 		}
-
 	}
 
-	// Package service (or repository) represents the infrastructure layer responsible
-	// for data persistence, external system interactions, and message publishing.
-	// This layer implements the interfaces defined in the business logic layer (usecase/domain)
-	// and contains the actual data access logic, such as database queries, API calls,
-	// and producers for publishing messages to Kafka or other message brokers.
-	// It acts as a bridge between the core business logic and external dependencies.
 	a.pg, err = postgres.InitDatabase(postgres.Config{
 		Port:     cfg.PgPort,
 		Host:     cfg.PgHost,
@@ -66,31 +61,23 @@ func (a App) Run() error {
 		LogLevel: cfg.LogLVL,
 	}, a.logger)
 	if err != nil {
-		a.logger.ErrorWithoutContext("failed", err)
+		a.logger.ErrorWithoutContext("failed to initialize postgres", err)
 		return err
 	}
 
-	// Package usecase (or domain) represents the core business logic layer.
-	// This layer contains the application's primary business rules and use cases,
-	// decoupled from infrastructure and external frameworks. It interacts with
-	// repositories and other external systems through defined interfaces,
-	// ensuring the business logic remains independent and testable.
 	uc := usecase.New(a.pg, a.logger)
-
-	// Package transport represents the layer responsible for communication between
-	// the application and external clients. This layer handles incoming requests
-	// (e.g., HTTP, gRPC) and outgoing responses, acting as the entry point for the system.
-	// It validates and parses input, invokes the appropriate business logic in the
-	// usecase/domain layer, and formats the output to be returned to the client.
-	// Transport may also handle protocols like REST, gRPC, WebSocket, or other
-	// communication mechanisms, ensuring a clear boundary between external clients
-	// and the internal application logic.
 	tr := transport.NewHandler(uc, a.logger)
 
+	// Горутин для запуска транспорта
 	go func() {
-		tr.Run()
+		if err := tr.Run(ctx); err != nil {
+			a.logger.ErrorWithoutContext("transport stopped with error", err)
+		}
 	}()
 
+	// Блокируем выполнение до отмены контекста
+	<-ctx.Done()
+	a.logger.InfoWithoutContext("App: Context cancelled, shutting down...")
 	return nil
 }
 

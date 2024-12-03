@@ -1,6 +1,8 @@
 package transport
 
 import (
+	"context"
+
 	"{{cookiecutter.project_slug}}/internal/pkg/logging"
 )
 
@@ -32,7 +34,7 @@ func NewHandler(useCase UseCase, logger logging.Logger) *Handler {
 
 // Run initializes and runs the transport layer.
 // Extend this method to start HTTP, gRPC, or other types of servers.
-func (h *Handler) Run() {
+func (h *Handler) Run(ctx context.Context) {
 	h.logger.InfoWithoutContext("Transport layer is running...")
 	// TODO: Implement transport logic, such as starting an HTTP or gRPC server or some broker.
 }
