@@ -10,7 +10,6 @@ type Config struct {
 	PgDB       string `env:"PG_DB" env-required:"true" env-description:"PostgreSQL database name"`
 	PgUser     string `env:"PG_USER" env-required:"true" env-description:"PostgreSQL user"`
 	PgPassword string `env:"PG_PASSWORD" env-required:"true" env-description:"PostgreSQL password"`
-	NatsURI    string `env:"NATS_URI" env-required:"true" env-description:"NATS server URI"`
 	HTTPPort   string `env:"HTTP_PORT" env-default:"4000" env-description:"HTTP server port"`
 	Migration  bool   `env:"MIGRATION" env-default:"false" env-description:"Run migrations at startup"`
 	LogLVL     int    `env:"LOG_LVL" env-default:"-1" env-description:"Log level"`
